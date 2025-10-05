@@ -3,30 +3,23 @@ package com.lolwm.properer_ping.client
 import net.fabricmc.api.ClientModInitializer
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents.EndTick
-import net.fabricmc.fabric.api.client.networking.v1.ClientLoginConnectionEvents
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents
 import net.minecraft.client.MinecraftClient
-import net.minecraft.client.network.ClientLoginNetworkHandler
-import net.minecraft.network.packet.Packet
 import net.minecraft.network.packet.c2s.query.QueryPingC2SPacket
-import net.minecraft.network.packet.s2c.config.ReadyS2CPacket
 import net.minecraft.network.packet.s2c.query.PingResultS2CPacket
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo
 
 object PropererPingClient : ClientModInitializer {
-    final const val MOD_ID = "properer_ping"
-    @JvmField
-    final val LOGGER: Logger = LoggerFactory.getLogger(MOD_ID)
+    //final const val MOD_ID = "properer_ping"
+    //@JvmField
+    //final val LOGGER: Logger = LoggerFactory.getLogger(MOD_ID)
 
-    public val latencyTracker = PacketLatencyTracker()
+    val latencyTracker = PacketLatencyTracker()
 
     override fun onInitializeClient() {
         latencyTracker.clear()
 
         ClientTickEvents.END_CLIENT_TICK.register(ClientTickCallback())
-        ClientPlayConnectionEvents.DISCONNECT.register { handler, client ->
+        ClientPlayConnectionEvents.DISCONNECT.register { _, _ ->
             latencyTracker.clear()
         }
     }
@@ -40,8 +33,9 @@ object PropererPingClient : ClientModInitializer {
     }
 
     @JvmStatic
-    fun getAverageLatency(): Long? {
-        return latencyTracker.getAverageLatency()
+    fun getAverageLatency(): Long {
+        val latency = latencyTracker.getAverageLatency()
+        return latency ?: 0L
     }
 
 //    @JvmStatic
@@ -52,7 +46,7 @@ object PropererPingClient : ClientModInitializer {
 //    }
 
     @JvmStatic
-    fun onPingResultReceived(packet: PingResultS2CPacket, ci: CallbackInfo) {
+    fun onPingResultReceived(packet: PingResultS2CPacket) {
         latencyTracker.recordPacketReceived(packet.startTime)
     }
 

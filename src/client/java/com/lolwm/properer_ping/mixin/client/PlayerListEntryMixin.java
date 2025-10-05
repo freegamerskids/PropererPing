@@ -8,8 +8,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import java.util.Objects;
-
 @Mixin(PlayerListEntry.class)
 public class PlayerListEntryMixin {
 
@@ -18,8 +16,7 @@ public class PlayerListEntryMixin {
         PlayerListEntry entry = (PlayerListEntry)(Object)this;
         assert MinecraftClient.getInstance().player != null;
         if (entry.getProfile().getId().equals(MinecraftClient.getInstance().player.getUuid())) {
-            int latency = Objects.requireNonNull(PropererPingClient.getAverageLatency()).intValue();
-            cir.setReturnValue(latency);
+            cir.setReturnValue((int) PropererPingClient.getAverageLatency());
         }
     }
 }
