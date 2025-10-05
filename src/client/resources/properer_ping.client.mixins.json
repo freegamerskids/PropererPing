@@ -1,0 +1,17 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.lolwm.properer_ping.mixin.client",
+  "compatibilityLevel": "JAVA_21",
+  "refmap": "client-properer_ping.refmap.json",
+  "client": [
+    "ClientPlayNetworkHandlerMixin",
+    "PlayerListEntryMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "overwrites": {
+    "requireAnnotations": true
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "id": "properer_ping",
+  "version": "${version}",
+  "name": "Properer Ping",
+  "description": "Tracks and provides access to packet latency measurements between Minecraft client and server",
+  "authors": [],
+  "contact": {},
+  "license": "Apache-2.0",
+  "icon": "assets/properer_ping/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "fabric-datagen": [
+      "com.lolwm.properer_ping.client.PropererPingDataGenerator"
+    ],
+    "client": [
+      {
+        "adapter": "kotlin",
+        "value": "com.lolwm.properer_ping.client.PropererPingClient"
+      }
+    ],
+    "main": [
+      "com.lolwm.properer_ping.PropererPing"
+    ]
+  },
+  "mixins": [
+    "properer_ping.mixins.json",
+    {
+      "config": "properer_ping.client.mixins.json",
+      "environment": "client"
+    }
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric-language-kotlin": ">=${kotlin_loader_version}",
+    "fabric": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}
