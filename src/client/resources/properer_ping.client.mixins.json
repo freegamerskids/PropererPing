@@ -2,7 +2,7 @@
   "required": true,
   "minVersion": "0.8",
   "package": "com.lolwm.properer_ping.mixin.client",
-  "compatibilityLevel": "JAVA_21",
+  "compatibilityLevel": "JAVA_17",
   "refmap": "client-properer_ping.refmap.json",
   "client": [
     "ClientPlayNetworkHandlerMixin",

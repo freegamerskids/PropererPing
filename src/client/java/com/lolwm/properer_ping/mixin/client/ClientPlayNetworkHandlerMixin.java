@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(ClientPlayNetworkHandler.class)
 public class ClientPlayNetworkHandlerMixin {
 
-    @Inject(method = "onPingResult(Lnet/minecraft/network/packet/s2c/query/PingResultS2CPacket;)V", at = @At("HEAD"))
+    @Inject(method = "onPingResult(Lnet/minecraft/network/packet/s2c/query/PingResultS2CPacket;)V", at = @At("HEAD"), remap = false)
     private void onPingResultReceived(PingResultS2CPacket packet, CallbackInfo ci) {
         PropererPingClient.onPingResultReceived(packet);
     }

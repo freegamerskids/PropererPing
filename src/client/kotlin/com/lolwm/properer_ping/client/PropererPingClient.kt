@@ -7,11 +7,13 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents
 import net.minecraft.client.MinecraftClient
 import net.minecraft.network.packet.c2s.query.QueryPingC2SPacket
 import net.minecraft.network.packet.s2c.query.PingResultS2CPacket
+import org.slf4j.LoggerFactory
+import org.slf4j.Logger
 
 object PropererPingClient : ClientModInitializer {
-    //final const val MOD_ID = "properer_ping"
-    //@JvmField
-    //final val LOGGER: Logger = LoggerFactory.getLogger(MOD_ID)
+    final const val MOD_ID = "properer_ping"
+    @JvmField
+    final val LOGGER: Logger = LoggerFactory.getLogger(MOD_ID)
 
     val latencyTracker = PacketLatencyTracker()
 
